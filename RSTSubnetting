@@ -1,0 +1,66 @@
+Andoks 350
+d1:coreSW
+config t
+vlan 12
+ name andoks.com
+ exit
+Int vlan 12
+ no shut
+ ip add 172.16.2.1 255.255.254.0
+ip dhcp excluded-add 172.16.2.1 172.16.2.50
+ip dhcp pool andoks.com
+ network 172.16.2.0 255.255.254.0
+ default-router 172.16.2.1
+ domain-name andoks.com
+ dns-server 10.12.1.10
+ option 150 ip 10.12.100.8
+
+A1: dhcptagapasa/vlanUser
+conf t
+ Int  e0/0
+  swi access vlan 12
+  do sh ip dhcp binding
+
+P1:pahingi ng ip:
+conf t
+ int e0/0
+ ip add dhcp
+
+
+
+
+baliwag 2800
+12b
+/32-/12 = /20 : 3rd, 16i
+ipasok si 16 sa 3rd octet
+net:172.16.16.0/20
+ip add: 172.16.16.1
+b: 172.16.31.255
+not telus: 172.16.32.0/20
+
+d2:coreSW
+config t
+vlan 5
+ name baliwag.com
+ exit
+Int vlan 5
+ no shut
+ ip add 172.16.16.1 255.255.240.0
+ip dhcp excluded-add 172.16.16.1 172.16.16.50
+ip dhcp pool baliwag.com
+ network 172.16.16.1 255.255.240.0
+ default-router 172.16.16.1
+ domain-name baliwag.com
+ dns-server 10.12.1.10
+ option 150 ip 10.12.100.8
+
+A2: dhcptagapasa/vlanUser
+conf t
+ Int  e1/0
+  swi access vlan 5
+  do sh ip dhcp binding
+
+P2:pahingi ng ip:
+conf t
+ int e1/0
+ ip add dhcp
