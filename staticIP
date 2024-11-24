@@ -1,0 +1,14 @@
+!Static Routing
+!ip route [net ip dikit] [subnet dikit] [next hop]
+
+!R3 to R1
+!R3 -> R2
+
+![R3]
+conf t 
+ip route 0.0.0.0 0.0.0.0 10.1.1.5
+
+!R1 -> R2
+![R1]
+conf t
+ip route 0.0.0.0 0.0.0.0 10.1.1.2
