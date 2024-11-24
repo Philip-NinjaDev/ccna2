@@ -1,0 +1,27 @@
+!dynamic routing (eigrp)
+R4
+conf t
+router eigrp 100
+network 10.0.0.0
+no auto-summary
+
+D1
+conf t
+router eigrp 100
+network 10.0.0.0
+network 192.168.1.0
+no auto-summary
+
+D2
+conf t
+router eigrp 100
+network 10.0.0.0
+network 192.168.1.0
+no auto-summary
+
+P1
+conf t
+int e0/0
+ip add 10.2.1.51 255.255.255.0
+ip route 0.0.0.0 0.0.0.0 10.2.1.1
+do ping 10.1.4.5
