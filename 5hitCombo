@@ -1,0 +1,19 @@
+**Find network IP on each subnets**
+192.168.100.0 to 5 Subnets
+CONVERT: 5 = 3BITS
+ADD: /24 + /3 = /27
+IPASOK: SI 32i SA 4TH
+
+0 Subnet: 192.168.100.0
+1st Subnet: 192.168.100.32
+2nd Subnet: 192.168.100.64
+3rd Subnet: 192.168.100.96
+4th Subnet: 192.168.100.128
+5th Subnet: 192.168.100.160
+6th Subnet: 192.168.100.192
+7th Subnet: 192.168.100.124
+
+
+**Find total hosts: /32 - 5 = /27 = 2^5 = 32 -2 = 30 hosts per subnet**
+
+**Find all the subnets: /24 [/original ip add] + /3 = /27 = 2^3 = 8 subnets**
