@@ -1,0 +1,29 @@
+!ROUTE REDISTRIBUTION (Pagsamahin and 2 protocols)
+
+@r1 !OFPG and BGP
+conf t
+router ospf 1 !router [protocol + process id]
+default-information originate always
+
+@r4 !EIGRP and OSPF
+!ipasok eigrp kay ospf
+conf t
+router ospf 1
+redistribute eigrp 100 subnets
+exit
+
+!ipasok ospf kay eigrp
+router eigrp 100
+	redistribute ospf 1 metric 1544 2000 255 1 1500
+	end
+
+!End-Device needs default static para talab and p1 at p2 sa ospf at bgp
+@p1
+conf t
+ip route 0.0.0.0 0.0.0.0 10.2.1.1
+end
+
+@p2
+conf t
+ip route 0.0.0.0 0.0.0.0 10.2.2.2
+end
