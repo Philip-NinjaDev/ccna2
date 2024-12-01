@@ -1,0 +1,32 @@
+!EIGRP ROUTING (Enchanced INterior Gateway Routing Protocol) [CISCO ONLY] 
+
+!EIGRP STATES [Hello -> Update ->  Query -> Request -> Acknowledge]
+
+@d1
+conf t
+router eigrp 100 ![autonomous region]
+	no auto-summary
+	network 10.2.1.0 0.0.0.255 !network [network to be advertised] [wilcard mask]
+	network 10.2.2.0 0.0.0.255
+	network 10.1.4.4 0.0.0.3
+end
+
+@d2
+conf t
+router eigrp 100 !router eigrp [autonomous region]
+	no auto-summary
+	network 10.2.1.0 0.0.0.255 !network [network to be advertised] [wilcard mask]
+	network 10.2.2.0 0.0.0.255
+	network 10.1.4.8 0.0.0.3
+end
+
+@r4
+conf t
+router eigrp 100 !router eigrp [autonomous region]
+	no auto-summary
+	network 10.2.1.0 0.0.0.255 !network [network to be advertised] [wilcard mask]
+	network 10.2.2.0 0.0.0.255
+	network 10.1.4.8 0.0.0.3
+	network 10.1.4.4 0.0.0.3
+end
+sh ip eigrp neighbours
