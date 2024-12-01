@@ -1,0 +1,53 @@
+!OSPF ROUTING (Open Shortest Path First)
+!NO AUTO SUMMARY FOR OSPF
+
+!OSPF STATES [Down -> Initialize -> Two - way -> Exstart -> Exchange -> Loading -> Full]
+
+!BDR - Border Designated Router = Dulo ng Area
+!DR - Designated Router = Router-id/Router Gateway
+
+@r4
+conf t
+int loopback 0
+	ip add 4.4.4.4 255.255.255.255 !ip add [loopback ip add (CAN CHANGE)] 255.255.255.255
+router ospf 1 !router ospf [process id]
+	router-id 4.4.4.4
+	network 10.1.1.8 0.0.0.3 area 34 !network [network to be advertised] [wilcard mask] [area]
+	network 4.4.4.4 0.0.0.0 area 34
+end
+
+@r3
+conf t
+int loopback 0
+	ip add 3.3.3.3 255.255.255.255
+router ospf 1 !router ospf [process id]
+	router-id 3.3.3.3
+	network 10.1.1.8 0.0.0.3 area 34 !network [network to be advertised] [wilcard mask] [area]
+	network 10.1.1.4 0.0.0.3 area 0
+	network 3.3.3.3 0.0.0.0 area 0
+	exit
+end
+
+@r2
+conf t
+int loopback 0
+	ip add 2.2.2.2 255.255.255.255
+router ospf 1 !router ospf [process id]
+	router-id 2.2.2.2 
+	network 10.1.1.0 0.0.0.3 area 12 !network [network to be advertised] [wilcard mask] [area]
+	network 10.1.1.4 0.0.0.3 area 0
+	network 2.2.2.2 0.0.0.0 area 0
+	exit
+end
+
+@r1
+conf t
+int loopback 0
+	ip add 1.1.1.1 255.255.255.255
+router ospf 1 !router ospf [process id]
+	router-id 1.1.1.1 
+	network 10.1.1.0 0.0.0.3 area 12 !network [network to be advertised] [wilcard mask] [area]
+	network 1.1.1.1 0.0.0.0 area 12
+	network 1.1.1.4 0.0.0.3 area 0
+	exit
+end
