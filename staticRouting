@@ -36,3 +36,56 @@ no shut
 ip route 0.0.0.0 0.0.0.0 10.2.2.2 1
 ip route 0.0.0.0 0.0.0.0 10.2.2.1 2
 do sh ip route static
+
+=============================================
+#DHCP
+@d1
+conf t
+#to configure excluded ip add
+ip dhcp excluded-address 10.2.1.1 10.2.1.99
+ip dhcp excluded-add 10.2.1.200 10.2.1.254
+#to configure dhcp
+ip dhcp pool vlan10
+	network 10.2.1.0 255.255.255.0
+	default-router 10.2.1.254
+
+#set vlan 10 to e1/0 of d1
+conf t
+int e1/0
+	switchport mode access
+	switchport access vlan 10
+do sh vlan br
+
+
+@d2
+conf t
+#to configure excluded ip add
+ip dhcp excluded-address 10.2.2.1 10.2.2.99
+ip dhcp excluded-add 10.2.2.200 10.2.2.254
+#to configure dhcp
+ip dhcp pool vlan20
+	network 10.2.2.0 255.255.255.0
+	default-router 10.2.2.254
+
+#set vlan 10 to e1/0 of d1
+conf t
+int e1/0
+	switchport mode access
+	switchport access vlan 20
+do sh vlan br
+
+@a1
+#to connect from d1 (ipasa)
+conf t
+int e0/0
+	switchport mode access
+	switchport access vlan 10
+	end
+
+@p1 (assign ip add from dhcp)
+conf t
+int e0/0 !int [interface port]
+ip add dhcp
+no shut
+end
+sh ip int br | ex una !display assigned ip add
