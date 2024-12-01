@@ -1,4 +1,4 @@
-!Static Routing
+!STATIC ROUTING
 !ip route [net ip dikit] [subnet dikit] [next hop]
 
 !R3 to R1
