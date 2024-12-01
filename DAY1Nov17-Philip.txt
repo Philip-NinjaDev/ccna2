@@ -31,7 +31,7 @@ config t
 	 description VOICEVLAN
 
 !!!DAPAT 7 UNDER SCORE ANG NA EDIT MO  ( LINE 34 to 68 PASTE TO COREBABA SWITCH )
-!@@@LeafSwitchONLY
+!@@@LeafSwitchONLYCOREbaba
 config t
    hostname COREbaba12
    enable secret pass
