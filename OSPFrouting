@@ -48,6 +48,6 @@ router ospf 1 !router ospf [process id]
 	router-id 1.1.1.1 
 	network 10.1.1.0 0.0.0.3 area 12 !network [network to be advertised] [wilcard mask] [area]
 	network 1.1.1.1 0.0.0.0 area 12
-	network 1.1.1.4 0.0.0.3 area 0
+	!network 1.1.1.4 0.0.0.3 area 0
 	exit
 end
