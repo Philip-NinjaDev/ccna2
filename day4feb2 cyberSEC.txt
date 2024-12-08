@@ -475,6 +475,20 @@ ping 8.8.8.8   1.1.1.1  4.2.2.2  8.8.4.4
 
 TASK9: NAT: NETWORK ADDRESS TRANSLATION SERVICE:
 nat, proxy, hotspot, tethering, = PENGE INTERNET
+
+!NETWORK ADDRESS TRANSLATION (NAT)
+!Give internet to entire companies/buildings
+!linux building 2:
+sudo su
+ifconfig eth0 192.168.102.100 netmask 255.255.255.0 up
+route add default gw 192.168.102.11
+ping 192.168.102.11
+!linux building 3:
+sudo su
+ifconfig eth0 192.168.103.100 netmask 255.255.255.0 up
+route add default gw 192.168.103.11
+ping 192.168.103.11
+
 Give Internet to your Entire building USING CISCO:
 STEP1: define INSIDE AND OUTSIDE:
 STEP2: create Access-list to permit IP of Inside:
