@@ -260,7 +260,7 @@ Int Gi 1
  no ip access-group NOTORRENT in
  end
 
-Firewall Profile no.1: use ExtendedACL vs NamedExtendedAcl
+!@@Firewall Profile no.1: use ExtendedACL vs NamedExtendedAcl@@!
 ex1: 
 www.web310.com open only http, https, ping
 www.web311.com open only dns,https  ==>  5 lines
