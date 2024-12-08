@@ -244,6 +244,110 @@ Top 5 UTM: 1.FortinetFortigate: syet
            1.1: Palo Alto:superSuplado
            2. Checkpoint
            3.4 Cisco
+conf t
+ip access-list standard NOTORRENT
+DENY 162.159.137.0 0.0.255.255
+DENY 104.31.16.0 0.0.255.255
+DENY 104.26.8.0 0.0.255.255
+Permit Any
+Int Gi 1
+ ip access-group NOTORRENT in
+ end
+
+
+Balik:
+Int Gi 1
+ no ip access-group NOTORRENT in
+ end
+
+Firewall Profile no.1: use ExtendedACL vs NamedExtendedAcl
+ex1: 
+www.web310.com open only http, https, ping
+www.web311.com open only dns,https  ==>  5 lines
+	GOLDEN FIREWALL FORMULA: paloalto, fortinet, cisco, checkpoint
+	protocol		hacker	victim		port
+tcp (data),udp,icmp (ping),IP   Any	web310/311
+
+conf t
+!to have log timestamsp
+service timestamps log datetime
+service timestamps debug datetime
+logging 10.12.1.10
+logging trap 5
+NO IP access-list Extended FWP1 
+IP access-list Extended FWP1
+  !Permit [protocol] [hacker] host [victim] eq [port] log
+  Permit tcp Any host www.web310.com eq 80 log
+  Permit tcp Any host www.web310.com eq 443 log
+  Permit icmp Any host www.web310.com log
+  Permit tcp Any host www.web311.com eq 53 log
+  Permit tcp Any host www.web311.com eq 443 log
+  Permit tcp Any host www.web311.com eq 22 log
+  Int Gi 3
+  ip access-group FWP1 in
+ 
+!remove firewall
+ Int Gi 3
+ no ip access-group FWP1 in
+
+Takas: ctrl shift 6 bitaw x
+
+ex2: 
+www.web310.com open only ssh, dns, http
+www.web311.com open only telnet, ssh, https, ping/icmp  ==>  5 lines
+	GOLDEN FIREWALL FORMULA: paloalto, fortinet, cisco, checkpoint
+	protocol		hacker	victim		port
+tcp (data),udp,icmp (ping),IP   Any	web310/311
+
+conf t
+!to have log timestamsp
+service timestamps log datetime
+service timestamps debug datetime
+logging 10.12.1.10
+logging trap 5
+NO IP access-list Extended FWP2 
+IP access-list Extended FWP2
+  !Permit [protocol] [hacker] host [victim] eq [port] log
+  Permit tcp Any host www.web310.com eq 80 log
+  Permit tcp Any host www.web310.com eq 22 log
+  Permit tcp Any host www.web310.com eq 53 log
+  Permit icmp Any host www.web311.com log
+  Permit tcp Any host www.web311.com eq 53 log
+  Permit tcp Any host www.web311.com eq 443 log
+  Permit tcp Any host www.web311.com eq 22 log
+  Int Gi 3
+  ip access-group FWP2 in
+ 
+!remove firewall
+ Int Gi 3
+ no ip access-group FWP2 in
+
+
+ex3: 
+www.web310.com open only 443
+www.web311.com open only ping  ==>2
+	GOLDEN FIREWALL FORMULA: paloalto, fortinet, cisco, checkpoint
+	protocol		hacker	victim		port
+tcp (data),udp,icmp (ping),IP   Any	web310/311
+
+conf t
+!to have log timestamsp
+service timestamps log datetime
+service timestamps debug datetime
+logging 10.12.1.10
+logging trap 5
+NO IP access-list Extended PRANING3
+IP access-list Extended PRANING3
+  !Permit [protocol] [hacker] host [victim] eq [port] log
+  Permit tcp Any host www.web310.com eq 443 log
+  Permit icmp Any host www.web311.com log
+  Int Gi 3
+  ip access-group PRANING3 in
+ 
+!remove firewall
+ Int Gi 3
+ no ip access-group PRANING3 in
+
 
 CYBERSECURITY TASK7: PROTECTING YOUR CORPORATE WEB APPS.
 EX.1 CREATE A FIREWALL POLICY NAMED Policy1 TO OPEN
