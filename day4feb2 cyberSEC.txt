@@ -68,10 +68,25 @@ DENY 104.17.0.0 0.0.255.255
 DENY 88.208.0.0 0.0.255.255
 DENY 208.77.0.0 0.0.255.255
 DENY 172.67.0.0 0.0.255.255
-Permit Any
+Permit Any !TO PERMIT OTHER SITES OTHER THAN SITES ABOVE
 Int Gi 1
  ip access-group NOPORN1 in
  end
+
+!Block all school websites
+conf t
+No ip access-list standard NOPORN1
+No ip access-list standard NOSCHOOL
+ip access-list standard NOSCHOOL
+DENY 162.241.123.0 0.0.255.255
+DENY 110.235.154.0 0.0.255.255
+DENY 192.0.78.0 0.0.255.255
+DENY 122.55.48.155 0.0.255.255
+Permit Any
+Int Gi 1
+ ip access-group NOSCHOOL in
+ end
+
 Task1.2: block admu.edu.ph, dlsu.edu.ph, ccp.edu.ph
 
 ping www.dlsu.edu.ph 172.67.14.0
@@ -197,8 +212,8 @@ before: nmap -v 10.m.100.8,  C> nmap
 config t
 int Gi 3
  no shut
- ip add 192.168.103.8 255.255.255.0
- ip add 192.168.103.9 255.255.255.0 Secondary
+ ip add 192.168.103.11 255.255.255.0
+ ip add 192.168.103.10 255.255.255.0 Secondary
 service finger
 service tcp-small-servers
 service udp-small-servers
@@ -206,8 +221,8 @@ ip dns server
 ip http server
 ip http secure-server
 !Make Ping EASY
-ip host www.web8.com 192.168.103.8
-ip host www.web9.com 192.168.103.9
+ip host www.web310.com 192.168.103.10
+ip host www.web311.com 192.168.103.11
 ip host pc 10.12.1.10
 ip host cm 10.12.100.8
 ip host cm2 10.12.100.9
