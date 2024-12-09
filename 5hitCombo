@@ -16,4 +16,4 @@ IPASOK: SI 32i SA 4TH
 
 **Find total hosts: /32 - 5 [bits per host]= /27 = 2^5 = 32-2 = 30 hosts per subnet**
 
-**Find all the subnets: /24 [/original ip add] + /3 [bits per subnet] /27 = 2^3 = 8-2 = 6 subnets**
+**Find all the subnets: /24 [/original ip add] + 3 [bits per subnet] = /27 = 2^3 = 8-2 = 6 subnets**
