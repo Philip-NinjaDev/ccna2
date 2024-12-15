@@ -1,0 +1,296 @@
+ipv6 subnetting
+
+Convert: 50 office = 6bits
+Add to : /64 + 6 = /70
+iget mo pattern:
+
+  8 4 2 1    8 4 2 1   8 4 2 1       8 4 2 1 
+1 0 0 0 0    0 0 
+2 0 0 0 0    0 1 
+
+ex 2:
+
+acad:acad:dace:dace::/64
+Convert: 350 office = 9bits
+Add to : /64 + 9 = /73
+iget mo pattern:
+  8 4 2 1    8 4 2 1   8 4 2 1       8 4 2 1 
+1 0 0 0 0    0 0 0 0   0
+acad:acad:dace:dace:0000
+2 0 0 0 0    0 0 0 0   1
+acad:acad:dace:dace:0080
+3 0 0 0 0    0 0 0 1   0
+acad:acad:dace:dace:0100
+4 0 0 0 0    0 0 0 1   1
+acad:acad:dace:dace:0180
+5 0 0 0 0    0 0 1 0   0
+acad:acad:dace:dace:0200
+
+
+
+acad:acad:dace:dace::/64
+Convert: 1500 office = 11bits
+Add to : /64 + 11 = /75
+iget mo pattern:
+  8 4 2 1    8 4 2 1   8 4 2 1       8 4 2 1 
+1 0 0 0 0    0 0 0 0   0 0 0    
+2 0 0 0 0    0 0 0 0   0 0 1  :0020
+3 0 0 0 0    0 0 0 0   0 1 0  :0040
+4 0 0 0 0    0 0 0 0   0 1 1  :0060
+5 0 0 0 0    0 0 0 0   1 0 0  :0080
+6 0 0 0 0    0 0 0 0   1 0 1  :00a0
+6 0 0 0 0    0 0 0 0   1 1 0  :00c0
+6 0 0 0 0    0 0 0 0   1 1 1  :00e0
+6 0 0 0 0    0 0 0 1   0 0 0  :0100
+
+
+
+
+ex 3
+acad:acad:dace:dace::/64
+Convert: 210 office = 8bits
+Add to : /64 + 8 = /72
+iget mo pattern:
+  8 4 2 1    8 4 2 1   8 4 2 1       8 4 2 1 
+1 0 0 0 0    0 0 0 0 :0000:
+2 0 0 0 0    1 0 0 0 :0001:
+3 0 0 0 1    0 0 0 0 :1000:
+4 
+
+
+How to configure this hands-on
+@edge
+conf t
+ipv6 unicast-routing
+Int loopback0
+ipv6 add acad:acad:dace:dace:0000::aaaa/72
+Int loopback1
+ipv6 add acad:acad:dace:dace:0100::aaaa/72
+Int loopback2
+ipv6 add acad:acad:dace:dace:0200::aaaa/72
+Int loopback3
+ipv6 add acad:acad:dace:dace:0300::aaaa/72
+Int loopback4
+ipv6 add acad:acad:dace:dace:0400::aaaa/72
+Int loopback5
+ipv6 add acad:acad:dace:dace:0500::aaaa/72
+
+
+ex 4
+baba:bebe:baba:bebe::/64
+Convert: 6 office = 3bits
+Add to : /64 + 3 = /67
+iget mo pattern:
+  8 4 2 1    8 4 2 1   8 4 2 1       8 4 2 1 
+1 0 0 0 :0000:
+2 0 0 1 :2000:
+3 0 1 0 :4000:
+4 0 1 1 :6000:
+5 1 0 0 :8000:
+6 1 0 1 :a000:
+conf t
+ipv6 unicast-routing
+Int loopback0
+ipv6 add baba:bebe:baba:bebe:0000::aaaa/67
+Int loopback1
+ipv6 add acad:acad:dace:dace:2000::aaaa/67
+Int loopback2
+ipv6 add acad:acad:dace:dace:4000::aaaa/67
+Int loopback3
+ipv6 add acad:acad:dace:dace:6000::aaaa/67
+Int loopback4
+ipv6 add acad:acad:dace:dace:8000::aaaa/67
+Int loopback5
+ipv6 add acad:acad:dace:dace:a000::aaaa/67
+
+--isa sa lab exam--
+
+ex 5
+aaaa:bbbb:cccc::/32
+Convert: 100 office = 7bits
+Add to : /64 + 7 = /71
+iget mo pattern:
+  8 4 2 1    8 4 2 1   8 4 2 1       8 4 2 1 
+1 0 0 0 0    0 0 0 aaaa:bbbb:cccc:0000
+2 0 0 0 0    0 0 1 aaaa:bbbb:cccc:0200
+3 0 0 0 0    0 1 0 aaaa:bbbb:cccc:0400
+4 0 0 0 0    0 1 1 aaaa:bbbb:cccc:0600
+5 0 0 0 0    1 0 0 aaaa:bbbb:cccc:0800
+6 0 0 0 0    1 0 1 aaaa:bbbb:cccc:0a00
+
+conf t
+ipv6 unicast-routing
+Int loopback0
+ipv6 add aaaa:bbbb:cccc:0000::aaaa/71
+Int loopback1
+ipv6 add aaaa:bbbb:cccc:0200::aaaa/71
+Int loopback2
+ipv6 add aaaa:bbbb:cccc:0400::aaaa/71
+Int loopback3
+ipv6 add aaaa:bbbb:cccc:0600::aaaa/71
+Int loopback4
+ipv6 add aaaa:bbbb:cccc:0800::aaaa/71
+Int loopback5
+ipv6 add aaaa:bbbb:cccc:0a00::aaaa/71
+end
+
+
+aaaa:bbbb:cccc::/64
+Convert: 100 office = 7bits
+Add to : /64 + 7 = /71
+iget mo pattern:
+  8 4 2 1    8 4 2 1   8 4 2 1       8 4 2 1 
+1 0 0 0 0    0 0 0 aaaa:bbbb:cccc:0000
+2 0 0 0 0    0 0 1 aaaa:bbbb:cccc:0200
+3 0 0 0 0    0 1 0 aaaa:bbbb:cccc:0400
+4 0 0 0 0    0 1 1 aaaa:bbbb:cccc:0600
+5 0 0 0 0    1 0 0 aaaa:bbbb:cccc:0800
+6 0 0 0 0    1 0 1 aaaa:bbbb:cccc:0a00
+
+conf t
+ipv6 unicast-routing
+Int loopback0
+ipv6 add aaaa:bbbb:cccc:0000:0000::aaaa/71
+Int loopback1
+ipv6 add aaaa:bbbb:cccc:0000:0200::aaaa/71
+Int loopback2
+ipv6 add aaaa:bbbb:cccc:0000:0400::aaaa/71
+Int loopback3
+ipv6 add aaaa:bbbb:cccc:0000:0600::aaaa/71
+Int loopback4
+ipv6 add aaaa:bbbb:cccc:0000:0800::aaaa/71
+Int loopback5
+ipv6 add aaaa:bbbb:cccc:0000:0a00::aaaa/71
+end
+
+
+
+
+-----------------
+802.1x (PORT SECURITY)
+-----------------
+@Core Taas
+conf t
+int f0/4
+	switchport mode access
+	switchport port-security mac-address sticky
+	switchport port-security maximum 1
+	switchport port-security violation shutdown
+end
+sh port-security address
+
+@CoreBaba
+conf t
+int range f0/6,f0/8
+shut
+no shut
+end
+
+
+-----Ether Channel----
+!Both switches
+conf t
+	default interface range f0/1-12
+	int range f0/10-12
+	switchport trunk encapsulation dot1q
+	switchport mode trunk
+end
+sh int trunk
+
+
+--1stEtherChannel
+@D1-A1
+conf t
+	int range e0/1-2
+	channel-group 1 mode active
+	channel-protocol Lacp
+	do sh etherchannel summ
+	do sh int po1 | inc BW
+end
+
+--2nd EtherChannel
+@D1
+conf t
+	int range e0/0,e0/3
+	channel-group 2 mode active
+	channel-protocol Lacp
+	do sh etherchannel summ
+	do sh int po2 | inc BW
+end
+
+@A2
+conf t
+	int range e0/1,e0/2
+	channel-group 2 mode active
+	  channel-protocol Lacp
+	  do sh etherchannel summ
+	  do sh int po2 | inc BW
+end
+--3rd EtherChannel
+@D1
+conf t
+	int range e1/2,e1/3 
+	channel-group 3 mode active
+	  channel-protocol Lacp
+	  do sh etherchannel summ
+	  do sh int po3 | inc BW
+end
+
+@D2
+conf t
+	int range e1/2,e1/3
+	channel-group 3 mode active
+	  channel-protocol Lacp
+	  do sh etherchannel summ
+	  do sh int po3 | inc BW
+end
+
+--4th EtherChannel
+@D2 and A2
+conf t
+	int range e0/0,e0/3 
+ 	channel-group 2 mode active
+	  channel-protocol Lacp
+	  do sh etherchannel summ
+	  do sh int po2 | inc BW
+end
+
+--5th EtherChannel
+@D2
+conf t
+	int range e0/1,e0/2
+ 	channel-group 1 mode active
+	  channel-protocol Lacp
+	  do sh etherchannel summ
+	  do sh int po1 | inc BW
+end
+
+@A1
+conf t
+	int range e0/3,e1/0
+ 	channel-group 1 mode active
+	  channel-protocol Lacp
+	  do sh etherchannel summ
+	  do sh int po1 | inc BW
+end
+
+
+
+-----First Hop Redundancy----
+@TAAS/PLDTinternet:
+config t
+hostname PLDTITO
+Track 1 Int gi 0/1 line-protocol
+Int vlan 1
+standby 1 ip 10.12.1.6
+standby 1 preempt
+standby 1 Priority 150
+standby 1 Track 1 decrement 60
+
+@BABA/GLOBE
+config t
+hostname GLOBEITO
+Int vlan 1
+standby 1 ip 10.12.1.6
+standby 1 preempt
+standby 1 Priority 100
