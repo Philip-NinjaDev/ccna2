@@ -16,10 +16,10 @@ Task1: 5 mins answers:
 
 IPV6 SUBNETTING:
 fec0:aabb:fafa:dada::/64 subnet to 22 offices/subnets:
-Con:  22 -> 5bits
+Con:  22 -> 5bits = to identify the place
 Add: /64 + /5 = /69
 iChamba:
-	8  4  2   1    8  4  2   1     8  4  2   1    8  4  2   1 
+	8  4  2   1    8  4  2   1     8  4  2   1    8  4  2   1  => for increment kung saan nahinto from the bits
 1st     0  0  0   0    0   : 0000:
 2nd     0  0  0   0    1     :0800:
 3rd     0  0  0   1    0     :1000:
